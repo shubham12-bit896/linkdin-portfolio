@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubham Katore | Health Informatics & Analytics</title>
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles (Light Mode) --><style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* Slate 50 */
+            color: #475569; /* Slate 600 */
+            overflow-x: hidden;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        /* Highlight Color (Indigo/Blue) */
+        .highlight {
+            color: #4F46E5; /* Indigo 600 */
+        }
+        /* Light Mode Card Style */
+        .professional-card {
+            background: #FFFFFF; /* White */
+            border: 1px solid #E2E8F0; /* Slate 200 */
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        .professional-card:hover {
+            transform: translateY(-4px);
+            /* Indigo-tinted glow */
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.07), 0 4px 6px -4px rgba(79, 70, 229, 0.07);
+            border-color: #4F46E5; /* Indigo 600 */
+        }
+        /* Call-to-Action Button (Light Mode) */
+        .cta-button {
+            border: 1px solid #4F46E5; /* Indigo 600 */
+            color: #4F46E5;
+            background-color: transparent;
+            border-radius: 6px;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+        .cta-button:hover {
+            background-color: rgba(79, 70, 229, 0.05); /* Light indigo background */
+            color: #6366F1; /* Indigo 500 */
+        }
+        
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Tab Styles (Light Mode) */
+        .tab-btn {
+            color: #64748B; /* Slate 500 */
+        }
+        .tab-btn.active { 
+            color: #4F46E5; /* Indigo 600 */
+            border-bottom-color: #4F46E5; 
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Side Social Links (Light Mode) */
+        .side-element {
+            width: 40px;
+            position: fixed;
+            bottom: 0;
+            z-index: 10;
+        }
+        .side-element.left { left: 40px; right: auto; }
+        .side-element ul { list-style: none; margin: 0; padding: 0; }
+        .side-element li:not(:last-child) { margin-bottom: 20px; }
+        .side-element a {
+            display: inline-block;
+            transition: all 0.25s ease;
+            /* color: #64748B; /* Slate 500 */ /* Color handled by specific classes */
+        }
+        .side-element a:hover {
+            transform: translateY(-3px);
+            /* color: #4F46E5; /* Indigo 600 */ /* Color handled by specific classes */
+        }
+        
+        /* Social Icon Colors */
+        .social-github, .social-github-mobile { color: #333; }
+        .social-github:hover, .social-github-mobile:hover { color: #000; }
+        .social-linkedin, .social-linkedin-mobile { color: #0077B5; }
+        .social-linkedin:hover, .social-linkedin-mobile:hover { color: #005582; }
+        .social-email, .social-email-mobile { color: #D93025; }
+        .social-email:hover, .social-email-mobile:hover { color: #B2241C; }
+
+        /* Mobile Close Button */
+        #mobile-menu-close-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #mobile-menu-close-button:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+            transform: scale(1.1) rotate(90deg);
+        }
+        /* Profile Image Hover Effect */
+        .profile-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            height: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+        }
+        .profile-image-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem; /* rounded-lg */
+            border: 2px solid #4F46E5; /* Indigo border */
+            transition: all 0.3s ease;
+        }
+        .profile-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transform: translate(0, 0);
+            transition: all 0.3s ease;
+        }
+        .profile-image-container:hover .profile-image-frame {
+            transform: translate(12px, 12px);
+        }
+        .profile-image-container:hover .profile-image-wrapper {
+            transform: translate(-12px, -12px);
+        }
+        
+        /* Skill Tag Colors (Light Mode) */
+        .skill-tag-ai { background-color: #EEF2FF; color: #4F46E5; } /* Indigo-50 / Indigo-600 */
+        .skill-tag-health { background-color: #ECFDF5; color: #10B981; } /* Emerald-50 / Emerald-500 */
+        .skill-tag-core { background-color: #FEF3C7; color: #D97706; } /* Amber-100 / Amber-700 */
+        .skill-tag-db { background-color: #EFF6FF; color: #3B82F6; } /* Blue-50 / Blue-500 */
+        /* Hide side elements on medium screens and down */
+        @media (max-width: 1024px) {
+            .side-element { display: none; }
+        }
+        
+        /* Adjust image container size for "About" section */
+        #about .profile-image-container {
+            max-width: 256px;
+            height: 256px;
+        }
+        
+        /* Hero Section background with subtle pattern */
+        #hero {
+            background-color: #F0F9FF; /* Light blue-50 */
+            background-image: radial-gradient(circle at top left, #DBEAFE 0%, #F0F9FF 70%); /* Light Blue Radial Gradient */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239CA3AF' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zm0 30V0h-2v4h-4v2h4v4h2V6h4V4h-4zm0 30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4v-4H4v4H0v2h4v4h2V6h4V4H6zm0 30v-4H4v4H0v2h4v4h2v-4h4v-2H6zm0 30v-4H4v4H0v2h4v4h2v-4h4v-2H6zm30 30v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM36 4v-4h-2v4h-4v2h4v4h2V6h4V4h-4zm0 30v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 30v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 64v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zm0 30v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4v-4H4v4H0v2h4v4h2V6h4V4H6z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), radial-gradient(circle at top left, #DBEAFE 0%, #F0F9FF 70%);
+            background-size: 60px 60px, cover;
+        }
+        /* Experience Section background (White) */
+        #experience {
+            background-color: #FFFFFF; /* White */
+            position: relative;
+            overflow: hidden;
+        }
+        /* Projects Section background (Subtle Lines) */
+        #projects {
+            background-color: #F1F5F9; /* Slate 100 */
+            background-image: linear-gradient(135deg, #F8FAFC 25%, transparent 25%), linear-gradient(225deg, #F8FAFC 25%, transparent 25%), linear-gradient(45deg, #F8FAFC 25%, transparent 25%), linear-gradient(315deg, #F8FAFC 25%, #F1F5F9 25%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 0, 10px -10px, 0px 10px;
+        }
+        /* Navbar specific for light mode */
+        #navbar-container .flex {
+            background-color: rgba(255, 255, 255, 0.8); /* Translucent white */
+            border: 1px solid #E2E8F0; /* Slate 200 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+            backdrop-filter: blur(4px); /* Added for a subtle blur effect */
+        }
+        #navbar-container .flex a { /* Nav links */
+            color: #475569; /* Slate 600 */
+            transition: color 0.3s ease;
+        }
+        #navbar-container .flex a:hover {
+            color: #1E293B; /* Slate 900 */
+        }
+        
+        /* * FIX 1: Removed incorrect rule that was overriding the logo color.
+         * The rule was: #navbar-container .flex .text-white { color: #475569; }
+         * This was incorrectly targeting the logo's 'text-white' class.
+        */
+
+        #mobile-menu {
+            background-color: #FFFFFF; /* White for mobile menu */
+        }
+        #mobile-menu .mobile-link {
+            color: #475569; /* Slate 600 */
+        }
+        #mobile-menu .mobile-link.highlight {
+            color: #4F46E5; /* Indigo 600 */
+            border-color: #4F46E5;
+        }
+        #mobile-menu-close-button {
+            color: #475569;
+        }
+        #mobile-menu-close-button:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+            color: #4F46E5;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+    <!-- Side Social Links --><div class="side-element left">
+        <ul class="flex flex-col items-center">
+            <li><a href="https://github.com/shubham12-bit896" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-github"><svg class="w-6 h-6" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></li>
+            <li><a href="https://www.linkedin.com/in/shubham-katore-a80936279" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-linkedin"><svg class="w-6 h-6" viewBox="0 0 24 24"><path fill="currentColor" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a></li>
+            <li><a href="mailto:shubhamkatore712@gmail.com" aria-label="Email" class="social-email"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></a></li>
+        </ul>
+    </div>
+    
+    <!-- Header / Nav --><header id="navbar-container" class="fixed top-4 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto max-w-7xl">
+            <!-- FIX 2: Reduced height and padding on mobile (h-14 px-4) and kept original for sm+ (sm:h-16 sm:px-6) -->
+            <div class="flex items-center justify-between h-14 sm:h-16 rounded-xl shadow-lg px-4 sm:px-6">
+                
+                <!-- Logo: Replaced with your provided code snippet -->
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-xl font-bold font-mono hover:bg-green-50 transition-colors flex-shrink-0" aria-label="Home">
+                    <svg class="w-6 h-6 stroke-green-600" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12h3l2-7 2.5 12 2.5-8 2 5 3-2h4"></path>
+                    </svg>
+                </a>
+                
+                <!-- Desktop Nav: Updated hover color to text-indigo-600 -->
+                <nav class="hidden md:flex items-center space-x-8 text-slate-600">
+                    <a href="#about" class="hover:text-indigo-600 transition-colors duration-300 text-sm font-medium">About</a>
+                    <a href="#experience" class="hover:text-indigo-600 transition-colors duration-300 text-sm font-medium">Experience</a>
+                    <a href="#education" class="hover:text-indigo-600 transition-colors duration-300 text-sm font-medium">Education</a>
+                    <a href="#projects" class="hover:text-indigo-600 transition-colors duration-300 text-sm font-medium">Projects</a>
+                    <a href="#skills" class="hover:text-indigo-600 transition-colors duration-300 text-sm font-medium">Skills</a>
+                    <a href="#contact" class="hover:text-indigo-600 transition-colors duration-300 text-sm font-medium">Contact</a>
+                </nav>
+                
+                <!-- Mobile Menu Button --><button id="mobile-menu-button" class="md:hidden text-slate-600 z-50">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- 
+         * FIX 3 & 4: 
+         * - Added 'bg-white' to ensure an opaque background.
+         * - Changed 'text-xl' to 'text-lg' to reduce font size.
+         * - Changed 'space-y-8' to 'space-y-6' for better spacing with smaller text.
+        -->
+        <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-screen bg-white flex flex-col items-center justify-center space-y-6 text-lg z-50">
+            <button id="mobile-menu-close-button" class="absolute top-6 right-6">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#experience" class="mobile-link">Experience</a>
+            <a href="#education" class="mobile-link">Education</a>
+            <a href="#projects" class="mobile-link">Projects</a>
+            <a href="#skills" class="mobile-link">Skills</a>
+            <a href="#contact" class="mobile-link highlight border border-current px-6 py-2 rounded-full">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section --><section id="hero" class="relative min-h-screen flex items-center justify-center pt-24">
+        <div class="relative z-10 max-w-7xl w-full px-6 md:px-8">
+            <!-- FIX: Added text-center for small screens, sm:text-left for larger screens -->
+            <div class="max-w-3xl text-center sm:text-left">
+                <p class="font-mono mb-4 text-indigo-600">Hi, my name is</p>
+                <h1 id="user-name" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-4 leading-tight">Shubham Katore.</h1>
+                <p id="user-summary" class="max-w-xl text-slate-600 text-base md:text-lg mx-auto sm:mx-0">
+                    I'm a passionate healthcare technologist with a background in Medical Imaging, currently pursuing an MSc in Health Informatics. I specialize in applying data analytics and machine learning to solve real-world problems in clinical diagnostics and healthcare operations.
+                </p>
+                <!-- FIX: Changed items-start to items-center sm:items-start to center the button/links on mobile -->
+                <div class="mt-12 flex flex-col items-center sm:items-start">
+                    <a href="#projects" class="cta-button">Check out my work!</a>
+                    <!-- Mobile Social Links --><div class="lg:hidden flex items-center gap-6 mt-8">
+                        <a href="https://github.com/shubham12-bit896" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-github-mobile transition-colors">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/shubham-katore-a80936279" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-linkedin-mobile transition-colors">
+                           <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="mailto:shubhamkatore712@gmail.com" aria-label="Email" class="social-email-mobile transition-colors">
+                             <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main class="max-w-7xl mx-auto px-6 md:px-8">
+        <!-- About Me Section --><section id="about" class="py-20 sm:py-24 md:py-28 reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-8 flex items-center text-slate-900">
+                <span class="highlight mr-4 text-xl sm:text-2xl font-mono">01.</span> About Me
+                <span class="h-px bg-slate-300 flex-grow ml-6"></span>
+            </h2>
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="w-full lg:w-3/5 professional-card p-6 md:p-8 rounded-lg">
+                    <div class="flex border-b border-slate-200 mb-6">
+                        <button class="tab-btn py-3 px-1 mr-6 font-mono text-sm border-b-2 border-transparent active" data-tab="about-me">About</button>
+                        <button class="tab-btn py-3 px-1 font-mono text-sm border-b-2 border-transparent" data-tab="philosophy">My Philosophy</button>
+                    </div>
+                    <div id="about-me" class="tab-content active space-y-4 text-base text-slate-600">
+                        <p>Hello! I'm Shubham, a technologist driven by a passion for improving healthcare through innovation. My journey began in medical imaging, where I gained hands-on experience with technologies like CT, MRI, and X-ray, and saw firsthand the critical role data plays in patient outcomes.</p>
+                        <p>This experience led me to pursue a Master's in Health Informatics & Analytics, where I'm deepening my skills in Python, SQL, and machine learning. I'm fascinated by the potential of AI to revolutionize diagnostics, from analyzing medical images to streamlining hospital workflows with predictive analytics.</p>
+                        <p>I thrive on bridging the gap between clinical needs and technical solutions. My goal is to create tools that are not only powerful but also intuitive and impactful for both patients and providers.</p>
+                    </div>
+                    <div id="philosophy" class="tab-content space-y-4 text-base text-slate-600">
+                        <p>I believe that technology should serve humanity, and nowhere is this more critical than in healthcare. My philosophy is rooted in a patient-centric approach: every line of code I write, every system I design, is ultimately aimed at improving an individual's health journey and outcomes.</p>
+                        <p>I am a strong advocate for data democratization—making complex medical information accessible and understandable. By empowering patients with their own data, we can foster a more collaborative and effective healthcare ecosystem. I am committed to building secure, ethical, and transparent AI systems that augment clinicians, reduce errors, and lead to more personalized care.</p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-2/5 mx-auto">
+                    <div class="profile-image-container">
+                        <div class="profile-image-frame"></div>
+                        <div class="profile-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==" 
+                                 alt="Health professional analyzing data on a laptop" 
+                                 class="w-full h-full object-cover object-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Experience Section --><section id="experience" class="py-20 sm:py-24 md:py-28 reveal relative">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-12 flex items-center text-slate-900 relative z-10">
+                <span class="highlight mr-4 text-xl sm:text-2xl">02.</span> Where I've Worked
+                <span class="h-px bg-slate-300 flex-grow ml-6"></span>
+            </h2>
+            <div class="max-w-3xl relative z-10">
+                <div class="relative border-l-2 border-slate-300 ml-4 pl-8 py-4">
+                    <div class="absolute -left-[10px] top-5 w-4 h-4 bg-indigo-600 rounded-full border-4 border-white"></div>
+                    <h3 class="text-xl font-bold text-slate-900">Radiology Trainee</h3>
+                    <p class="text-md font-medium text-slate-700 mb-2">Saint George hospital | CSMT</p>
+                    <p class="text-sm font-mono text-slate-500 mb-4">November 2022 - April 2023</p>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-base text-slate-600">
+                        <li>Assisted in CT, MRI, and X-ray procedures, ensuring adherence to safety protocols.</li>
+                        <li>Managed DICOM images using PACS and supported RIS/EMR workflows.</li>
+                        <li>Implemented a quality control system that enhanced diagnostic accuracy by 15% and reduced equipment downtime by 20%.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Education & Certifications Section --><section id="education" class="py-20 sm:py-24 md:py-28 reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4 flex items-center text-slate-900">
+                <span class="highlight mr-4 text-xl sm:text-2xl">03.</span> Education
+                <span class="h-px bg-slate-300 flex-grow ml-6"></span>
+            </h2>
+            <p class="text-lg text-slate-700 mb-10 max-w-3xl font-medium">
+                And Certifications
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- MSc --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900">MSc in Health Informatics & Analytics</h3>
+                    <p class="highlight text-md font-medium my-2">The Apollo University, Chittoor</p>
+                    <p class="text-sm font-mono text-slate-500 mb-3">Pursuing (Expected 2026) | 9.75 CGPA</p>
+                    <p class="text-sm text-slate-600">Case study on the evolution of AI in medical imaging (CNNs vs. Vision Transformers).</p>
+                </div>
+                <!-- BSc --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900">BSc in Medical Imaging Technology</h3>
+                    <p class="highlight text-md font-medium my-2">Tata Institute of Social Science, Mumbai</p>
+                    <p class="text-sm font-mono text-slate-500 mb-3">Graduated 2024 | 7.7 GPA</p>
+                    <p class="text-sm text-slate-600">Served as a community health camp volunteer.</p>
+                </div>
+                <!-- Cert 1 --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900">Fundamentals of Machine Learning</h3>
+                    <p class="highlight text-md font-medium my-2">Coursera | Stanford Online</p>
+                    <p class="text-sm text-slate-600">Specialized in ML applications for healthcare data.</p>
+                </div>
+                <!-- Cert 2 --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900">AI in Healthcare</h3>
+                    <p class="highlight text-md font-medium my-2">Coursera | Stanford Online</p>
+                    <p class="text-sm text-slate-600">Completed 2024. Focused on ethical AI and clinical integration.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Projects Section --><section id="projects" class="py-20 sm:py-24 md:py-28 reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4 flex items-center text-slate-900">
+                <span class="highlight mr-4 text-xl sm:text-2xl">04.</span> Things I've Built
+                <span class="h-px bg-slate-300 flex-grow ml-6"></span>
+            </h2>
+            <p class="text-sm text-slate-500 italic mb-10 max-w-3xl">
+                Note: Projects are hosted on free services and may take 30-60 seconds to load as they wake from sleep.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Project Card 1: Pulmonology EMR --><div class="professional-card overflow-hidden flex flex-col group" onclick="window.open('https://pulmonology-app-2.onrender.com/', '_blank')">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x360/F8FAFC/4F46E5?text=Pulmonology+EMR" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="Pulmonology EMR Screenshot">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div>
+                            <p class="highlight font-mono text-sm font-medium">Featured Project</p>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2 mb-3 group-hover:text-indigo-600 transition-colors">
+                                Pulmonology Department EMR
+                            </h3>
+                            <p class="text-sm text-slate-600 flex-grow">
+                                An enterprise-grade Flask application for a hospital's pulmonology department, featuring role-based access, ML-powered COPD risk prediction, and an integrated Gemini AI clinical assistant.
+                            </p>
+                        </div>
+                        <div class="mt-auto pt-4">
+                            <ul class="flex flex-wrap gap-2 text-xs font-mono text-indigo-700">
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Flask</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Python</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">SQLAlchemy</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Scikit-learn</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Gemini API</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 2: Medical Insurance Prediction --><div class="professional-card overflow-hidden flex flex-col group" onclick="window.open('https://medical-insurance-cost-prediction-model.streamlit.app/', '_blank')">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x360/F8FAFC/4F46E5?text=Insurance+Prediction" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="Medical Insurance Cost Prediction Screenshot">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div>
+                            <p class="highlight font-mono text-sm font-medium">Machine Learning App</p>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2 mb-3 group-hover:text-indigo-600 transition-colors">
+                                Medical Insurance Cost Prediction
+                            </h3>
+                            <p class="text-sm text-slate-600 flex-grow">
+                                A web application that leverages machine learning to predict medical insurance costs based on user inputs, aiding in financial planning.
+                            </p>
+                        </div>
+                        <div class="mt-auto pt-4">
+                            <ul class="flex flex-wrap gap-2 text-xs font-mono text-indigo-700">
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Streamlit</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Python</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Scikit-learn</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Pandas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 3: AI Radiology Health --><div class="professional-card overflow-hidden flex flex-col group" onclick="window.open('https://ai-radiology-health.streamlit.app/', '_blank')">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x360/F8FAFC/4F46E5?text=AI+Radiology" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="AI Radiology Health Screenshot">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div>
+                            <p class="highlight font-mono text-sm font-medium">Deep Learning App</p>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2 mb-3 group-hover:text-indigo-600 transition-colors">
+                                AI-Powered Radiology Assistant
+                            </h3>
+                            <p class="text-sm text-slate-600 flex-grow">
+                                An intelligent system that assists radiologists by analyzing chest X-rays to detect pneumonia, utilizing a deep learning model for high accuracy.
+                            </p>
+                        </div>
+                        <div class="mt-auto pt-4">
+                            <ul class="flex flex-wrap gap-2 text-xs font-mono text-indigo-700">
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Streamlit</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">TensorFlow</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Keras</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 4: GemChat Pro --><div class="professional-card overflow-hidden flex flex-col group" onclick="window.open('https://gemchat-pro.streamlit.app/', '_blank')">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x360/F8FAFC/4F46E5?text=GemChat+Pro" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" alt="GemChat Pro Screenshot">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div>
+                            <p class="highlight font-mono text-sm font-medium">Generative AI App</p>
+                            <h3 class="text-xl font-bold text-slate-900 mt-2 mb-3 group-hover:text-indigo-600 transition-colors">
+                                GemChat Pro
+                            </h3>
+                            <p class="text-sm text-slate-600 flex-grow">
+                                A versatile, multi-modal chatbot powered by the Gemini Pro and Vision APIs, capable of engaging in text-based conversations and analyzing images.
+                            </p>
+                        </div>
+                        <div class="mt-auto pt-4">
+                            <ul class="flex flex-wrap gap-2 text-xs font-mono text-indigo-700">
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Streamlit</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Python</li>
+                                <li class="bg-indigo-100 px-3 py-1 rounded-full">Gemini API</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Skills Section --><section id="skills" class="py-20 sm:py-24 md:py-28 reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-12 flex items-center text-slate-900">
+                <span class="highlight mr-4 text-xl sm:text-2xl">05.</span> My Technical Skills
+                <span class="h-px bg-slate-300 flex-grow ml-6"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Category 1: AI & ML --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 highlight">AI & Machine Learning</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Python</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Scikit-learn</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">TensorFlow</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Keras</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Pandas</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">NumPy</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Seaborn</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Generative AI</span>
+                        <span class="skill-tag-ai px-3 py-1 rounded-full font-medium text-sm">Matplotlib</span>
+                    </div>
+                </div>
+                <!-- Category 2: Health Informatics --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 highlight">Health Informatics</h3>
+                    <div class="flex flex-wrap gap-3">
+                         <span class="skill-tag-health px-3 py-1 rounded-full font-medium text-sm">HL7/FHIR</span>
+                         <span class="skill-tag-health px-3 py-1 rounded-full font-medium text-sm">DICOM</span>
+                         <span class="skill-tag-health px-3 py-1 rounded-full font-medium text-sm">RIS/PACS</span>
+                         <span class="skill-tag-health px-3 py-1 rounded-full font-medium text-sm">EMR Workflows</span>
+                         <span class="skill-tag-health px-3 py-1 rounded-full font-medium text-sm">HIPAA</span>
+                         <span class="skill-tag-health px-3 py-1 rounded-full font-medium text-sm">Clinical Data</span>
+                    </div>
+                </div>
+                <!-- Category 3: Web & App Development --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 highlight">Web & App Development</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag-core px-3 py-1 rounded-full font-medium text-sm">HTML5 & CSS3</span>
+                        <span class="skill-tag-core px-3 py-1 rounded-full font-medium text-sm">JavaScript</span>
+                        <span class="skill-tag-core px-3 py-1 rounded-full font-medium text-sm">Tailwind CSS</span>
+                        <span class="skill-tag-core px-3 py-1 rounded-full font-medium text-sm">Flask</span>
+                        <span class="skill-tag-core px-3 py-1 rounded-full font-medium text-sm">Streamlit</span>
+                        <span class="skill-tag-core px-3 py-1 rounded-full font-medium text-sm">Git & GitHub</span>
+                    </div>
+                </div>
+                
+                <!-- Category 4: Database Technologies --><div class="professional-card p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 highlight">Database Technologies</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag-db px-3 py-1 rounded-full font-medium text-sm">SQL</span>
+                        <span class="skill-tag-db px-3 py-1 rounded-full font-medium text-sm">SQLite</span>
+                        <span class="skill-tag-db px-3 py-1 rounded-full font-medium text-sm">SQLAlchemy</span>
+                        <span class="skill-tag-db px-3 py-1 rounded-full font-medium text-sm">Database Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section --><section id="contact" class="py-20 sm:py-24 md:py-28 text-center max-w-xl mx-auto reveal">
+              <h2 class="text-2xl sm:text-3xl font-bold mb-4 flex-col items-center">
+                    <span class="highlight mr-2 text-xl sm:text-2xl font-mono block mb-2">What's Next?</span>
+                    <span class="text-4xl text-slate-900 block">Get In Touch</span>
+              </h2>
+              <p class="mb-8 text-base text-slate-600">I'm actively seeking opportunities to apply my skills to challenging problems in health informatics. Whether you have aquestion, a project idea, or just want to connect, my inbox is always open. I'll do my best to get back to you!</p>
+              <a href="mailto:shubhamkatore712@gmail.com" class="cta-button inline-block">
+                    Say Hello
+              </a>
+        </section>
+    </main>
+    <footer class="max-w-7xl mx-auto px-6 md:px-8 text-center py-8 text-sm text-slate-500 font-mono">
+        <div>Designed & Built by Shubham Katore</div>
+        <div class="mt-2">© 2025 Shubham Katore. All Rights Reserved.</div>
+    </footer>
+    
+    <!-- JavaScript for UI Interactions --><script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Mobile Menu Logic ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+            
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+            mobileMenuCloseButton.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+            // --- Scroll Reveal Logic ---
+            function reveal() {
+                const reveals = document.querySelectorAll('.reveal');
+                reveals.forEach(revealEl => {
+                    if (revealEl.getBoundingClientRect().top < window.innerHeight - 100) {
+                        revealEl.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', reveal);
+            reveal(); // Initial check on load
+
+            // --- About Me Tabs Logic ---
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    tabContents.forEach(content => {
+                        content.id === tabId ? content.classList.add('active') : content.classList.remove('active');
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
